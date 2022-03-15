@@ -9,3 +9,4 @@ const userReducer =(state=initialeState, action)=>{
              return state
         }
 }
+export default userReducer

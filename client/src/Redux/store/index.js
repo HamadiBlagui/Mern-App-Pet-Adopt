@@ -5,6 +5,6 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 
 
 const middlewares=[thunk]
-const store=createStore(rootReducer,composeWithDevTools(applyMiddleware(middlewares)))
+const store=createStore(rootReducer,composeWithDevTools(applyMiddleware(...middlewares)))
 
 export default store;

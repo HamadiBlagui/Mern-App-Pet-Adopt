@@ -11,8 +11,8 @@ constUser = require("../models/User");
 router.post("/register", async (req, res) => {
   // checking user fields
   try {
-    const { name, password, email, country , isAdmin } = req.body;
-    if (!name || !password || !email || !country) {
+    const { name, password, email } = req.body;
+    if (!name || !password || !email) {
       return res
         .status(400)
         .json({ status: true, msg: "All Fields are required !!" });
@@ -29,10 +29,8 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       name,
-      country,
       email,
       password: hashedPassword,
-      isAdmin 
     });
     return res
       .status(200)
