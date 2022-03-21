@@ -1,7 +1,9 @@
 import React from 'react'
 import {Form,Col,Row,Button} from "react-bootstrap"
-
-
+import axios from "axios"
+import { useState } from 'react'
+import {login} from "../../utils"
+//import {useHistory} from "react-router-dom"
 const UserLogin = () => {
 
     // const  handleChange=e=>{
@@ -9,6 +11,22 @@ const UserLogin = () => {
 
     //     // .post('/api/users/login' , newUser)
     // }
+    const [loginData , setLoginData] = useState({})
+    const handleChange=(e)=>{
+      setLoginData({...loginData , [e.target.name] : e.target.value});
+    }
+    // const history=useHistory()
+
+    
+    const handleClick=()=>{
+      axios
+      .post('/api/users/login' , loginData)
+      .then((res)=>{login(res.data.token);alert('logged in sucessfully')})
+      .catch(err=>console.log(err.response.data.msg))
+      //history.push("/")
+      
+
+    }
   return (
     <div>
         <Form>
@@ -17,7 +35,7 @@ const UserLogin = () => {
       Email
     </Form.Label>
     <Col sm="10">
-      <Form.Control plaintext defaultValue="email@example.com" />
+      <Form.Control plaintext defaultValue="email@example.com" onChange={handleChange}/>
     </Col>
   </Form.Group>
 
@@ -26,12 +44,12 @@ const UserLogin = () => {
       Password
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="password" placeholder="Password" />
+      <Form.Control type="password" placeholder="Password" onChange={handleChange}/>
     </Col>
   </Form.Group>
 {/* <Button variant="success" onClick={handleClick} >Login</Button> */}
+<Button variant="success" onClick={handleClick} >Login</Button>
 </Form>
-    
     
     </div>
   )
