@@ -6,13 +6,10 @@ import {login} from "../../utils"
 //import {useHistory} from "react-router-dom"
 const UserLogin = () => {
 
-    // const  handleChange=e=>{
-    //     setNewUser({...newUser , [e.target.name] : e.target.value})
-
-    //     // .post('/api/users/login' , newUser)
-    // }
+   
     const [loginData , setLoginData] = useState({})
     const handleChange=(e)=>{
+      console.log(e.target.value)
       setLoginData({...loginData , [e.target.name] : e.target.value});
     }
     // const history=useHistory()
@@ -20,7 +17,7 @@ const UserLogin = () => {
     
     const handleClick=()=>{
       axios
-      .post('/api/users/login' , loginData)
+      .post('api/users/login' , loginData)
       .then((res)=>{login(res.data.token);alert('logged in sucessfully')})
       .catch(err=>console.log(err.response.data.msg))
       //history.push("/")
@@ -35,7 +32,7 @@ const UserLogin = () => {
       Email
     </Form.Label>
     <Col sm="10">
-      <Form.Control plaintext defaultValue="email@example.com" onChange={handleChange}/>
+      <Form.Control plaintext name="email" defaultValue="email@example.com" onChange={handleChange}/>
     </Col>
   </Form.Group>
 
@@ -44,10 +41,10 @@ const UserLogin = () => {
       Password
     </Form.Label>
     <Col sm="10">
-      <Form.Control type="password" placeholder="Password" onChange={handleChange}/>
+      <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange}/>
     </Col>
   </Form.Group>
-{/* <Button variant="success" onClick={handleClick} >Login</Button> */}
+
 <Button variant="success" onClick={handleClick} >Login</Button>
 </Form>
     
